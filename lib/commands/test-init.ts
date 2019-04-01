@@ -100,9 +100,10 @@ class TestInitCommand implements ICommand {
 		const frameworks = [frameworkToInstall].concat(this.karmaConfigAdditionalFrameworks[frameworkToInstall] || [])
 			.map(fw => `'${fw}'`)
 			.join(', ');
-		const testFiles = `'${fromWindowsRelativePathToUnix(relativeTestsDir)}/**/*${projectFilesExtension}'`;
+		const testFilesWithBundle = `'${fromWindowsRelativePathToUnix(relativeTestsDir)}/**/*${projectFilesExtension}'`;
+		const testFilesWithoutBundle = `'${fromWindowsRelativePathToUnix(relativeTestsDir)}/**/*.js'`;
 		const karmaConfTemplate = this.$resources.readText('test/karma.conf.js');
-		const karmaConf = _.template(karmaConfTemplate)({ frameworks, testFiles });
+		const karmaConf = _.template(karmaConfTemplate)({ frameworks, testFilesWithBundle, testFilesWithoutBundle });
 
 		this.$fs.writeFile(path.join(projectDir, 'karma.conf.js'), karmaConf);
 

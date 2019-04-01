@@ -11,9 +11,7 @@ module.exports = function(config) {
 
 
     // list of files / patterns to load in the browser
-    files: [
-      ${ testFiles }
-    ],
+    files: config.bundle ? [ ${ testFilesWithBundle } ] : [ ${ testFilesWithoutBundle }],
 
 
     // list of files to exclude
